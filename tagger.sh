@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 
 # first fetch so that tags will be updated.
 git fetch
