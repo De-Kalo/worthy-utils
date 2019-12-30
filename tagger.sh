@@ -3,7 +3,7 @@
 # first fetch so that tags will be updated.
 git fetch
 # get latest tag 
-tag=$(git log --decorate --oneline | grep "tag:" | head -n 1 | sed -E 's/[a-f0-9]{7,12} \(.*tag: ([0-9]{1,3}\.[0-9]{1,3}(\.[0-9]{1,4}){0,1}).*\).*/\1/')
+tag=$(git log --decorate --oneline -n1000| grep "tag:" | head -n 1 | sed -E 's/[a-f0-9]{7,12} \(.*tag: ([0-9]{1,3}\.[0-9]{1,3}(\.[0-9]{1,4}){0,1}).*\).*/\1/')
 # get latest commit message
 message=$(git log  --pretty=format:'%s')
 
