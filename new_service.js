@@ -103,7 +103,7 @@ async function createHerokuApp() {
 	console.log('\n--- Enabling heroku labs runtime dyno metadata'.magenta)
 	execSync(`heroku labs:enable runtime-dyno-metadata -a ${settings.appName}`)
 
-	const addonsApp = settings.targetStage === 'prod' ? 'worthy-segment' : 'worthy-segment-qa'
+	const addonsApp = settings.targetEnv === 'production' ? 'worthy-segment' : `worthy-segment-${settings.targetEnv}`
 	// expect the first line to be:
 	// '=== ADDON_NAME'
 	const coralogix = execSync(`heroku addons:info CORALOGIX -a ${addonsApp}`)
