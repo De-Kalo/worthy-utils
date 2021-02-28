@@ -1,7 +1,6 @@
 const yargs = require('yargs/yargs')
-const { execSync, exec } = require('child_process')
+const { execSync } = require('child_process')
 const colors = require('colors')
-const { create } = require('domain')
 const { hideBin } = require('yargs/helpers')
 
 const readline = require("readline");
