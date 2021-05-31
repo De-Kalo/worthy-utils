@@ -212,7 +212,7 @@ async function copyEnvVars() {
 		if (myEnv[key]) continue
 		if (excludePrefixes.find((pfx) => key.startsWith(pfx))) continue
 		console.log(`--- Copying ${key}`.magenta)
-		execSync(`heroku config:set ${key}=${copyEnv[key]} -a ${settings.appName}`)
+		execSync(`heroku config:set ${key}='${copyEnv[key]}' -a ${settings.appName}`)
 	}
 }
 
