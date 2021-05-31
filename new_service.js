@@ -97,7 +97,10 @@ async function createHerokuApp() {
 	const authDetails = JSON.parse(execSync('heroku authorizations -j').toString())
 		.find((auth) => auth.description === "Heroku CLI")
 	
-	execSync(`heroku config:set HEROKU_API_KEY=${authDetails.access_token.token} -a ${settings.appName}`)
+	let token
+	try { token = authDetails.access_token.token }
+	catch (e) { token = await getUserInput('Please enter a valid token for the HEROKU_API_KEY env var')}
+	execSync(`heroku config:set HEROKU_API_KEY=${token} -a ${settings.appName}`)
 
 	console.log('\n--- Enabling heroku labs runtime dyno metadata'.magenta)
 	execSync(`heroku labs:enable runtime-dyno-metadata -a ${settings.appName}`)
