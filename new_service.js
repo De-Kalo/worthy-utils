@@ -144,7 +144,7 @@ async function createHerokuApp() {
 	}
 	catch {
 		console.log('--- Attaching free rollbar addon'.magenta)
-		execSync(`heroku addons:create rollbar:free -a ${settings.appName}`)
+		execSync(`heroku addons:create rollbar:trial-5k -a ${settings.appName}`)
 	}
 
 	let stage = settings.targetEnv === 'production' ? 'prod' : 'qa'
