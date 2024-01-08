@@ -1,0 +1,44 @@
+#!/bin/bash
+#heroku login
+
+apps_str=$(heroku apps -t ipawn | cut -f 1 -w)
+
+SAVEIFS=$IFS
+IFS=$'\n'
+apps=($apps_str)
+IFS=$SAVEIFS
+
+
+for app in "${apps[@]}"
+do
+	echo ""
+	echo "......................."
+	echo $app
+	echo "......................."
+	echo ""
+
+	res=$(heroku certs:info --app=$app 2>&1)
+	
+	echo $res
+
+	if [[ $res == *"worthy.com"* ]];
+	then 
+		
+		echo ""
+		echo "$app REQUIRES certificate update"
+		read -p "Press any key to update..."
+		heroku certs:update bundle.crt server.key -a $app --confirm $app
+		
+	elif [[ $res == *"has no SSL"* ]];
+	then
+		echo "Not required"
+		
+	else
+		echo "$app DOES NOT Require certificate update"
+	fi
+done
+
+echo "-----------------------------------------------"
+echo "---------------- DONE! ------------------------"
+
+heroku apps -t ipawn | cut -f 1 -w
